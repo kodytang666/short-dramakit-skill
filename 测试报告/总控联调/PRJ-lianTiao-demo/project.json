@@ -1,0 +1,13 @@
+{
+  "project_id": "PRJ-lianTiao-demo",
+  "title": "打烊后少三杯",
+  "created": "2026-10-30",
+  "stage_status": {
+    "concept": "done", "story": "blocked", "script": "blocked",
+    "assets": "not-started", "storyboard": "not-started", "generation": "not-started",
+    "post": "not-started"
+  },
+  "brief_version": 2,
+  "target_model": null,
+  "gates_thresholds": {}
+}

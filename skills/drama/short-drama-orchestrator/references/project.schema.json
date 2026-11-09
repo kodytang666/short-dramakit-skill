@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "AI 短剧项目档案 project.json",
+  "description": "短剧流水线总控的项目级数据结构。阶段产物本体是 Markdown（frontmatter 见 schemas/ids.md），本结构只管项目状态与全局参数。",
+  "type": "object",
+  "required": ["project_id", "title", "created", "stage_status"],
+  "properties": {
+    "project_id": {
+      "type": "string",
+      "pattern": "^PRJ-[a-z0-9-]+$",
+      "description": "项目 ID，全流水线所有文档 frontmatter 必须一致"
+    },
+    "title": { "type": "string" },
+    "created": { "type": "string", "format": "date" },
+    "stage_status": {
+      "type": "object",
+      "required": ["concept", "story", "script", "assets", "storyboard", "generation", "post"],
+      "propertyNames": { "enum": ["concept", "story", "script", "assets", "storyboard", "generation", "post"] },
+      "additionalProperties": {
+        "enum": ["not-started", "in-progress", "blocked", "done"]
+      }
+    },
+    "brief_version": { "type": ["integer", "null"], "description": "当前生效的制作简报版本" },
+    "target_model": {
+      "type": ["string", "null"],
+      "description": "目标视频模型（约束分镜与生成两端）：seedance-2.0 / jimeng / 其他字符串",
+      "examples": ["seedance-2.0", "jimeng"]
+    },
+    "native_duration_seconds": {
+      "type": ["object", "null"],
+      "description": "目标模型原生时长区间；target_model 确认后回填",
+      "properties": {
+        "min": { "type": "integer" },
+        "max": { "type": "integer" }
+      }
+    },
+    "gates_thresholds": {
+      "type": "object",
+      "description": "阶段二量化门的项目级覆写（如 major_spa_gap_max）",
+      "additionalProperties": true
+    },
+    "decisions_count": {
+      "type": "integer",
+      "description": "决策总账当前最大编号（DEC 顺延依据）"
+    }
+  }
+}
