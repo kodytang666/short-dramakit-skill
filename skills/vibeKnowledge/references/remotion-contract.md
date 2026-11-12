@@ -8,7 +8,7 @@
 |---|---|
 | "第 N 秒是什么画面" | `useCurrentFrame()` 拿帧号 + `useVideoConfig().fps` 换算秒——**永远用 fps 换算，不许写死 30** |
 | 分段动画（t 在 [a,b] 内播放） | `interpolate(frame, [a*fps, b*fps], [0,1], {extrapolateLeft/Right: "clamp", easing})`——**两端必须 clamp** |
-| 缓动（进出场手感） | `Easing.bezier(...)` / `Easing.spring({damping})`；缩放动画加 `output: "perceptual-scale"` |
+| 缓动（进出场手感） | `Easing.bezier(...)` / `Easing.spring({damping})`；缩放在对数空间插值 `Math.exp(interpolate(f, r, [Math.log(a), Math.log(b)]))`（4.0.292 的 `interpolate` 没有 `output` 选项） |
 | 逐拍时间线 | 一个场景一个组件；相邻场景用 `TransitionSeries.Sequence` + fade/slide 转场（**转场时长会缩短总时长，编排时计入**） |
 | 固定种子 rng | 禁 `Math.random()`；模块顶层 `mulberry32(seed)`，全片同一序列 |
 | 禁帧间状态 | CSS `transition` / `animation` / Tailwind 动画类**一律禁用**——它们不随帧渲染，输出会错；一切动效由帧号驱动 |

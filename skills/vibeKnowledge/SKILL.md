@@ -7,7 +7,7 @@ description: >
   句子里的动词屏上真的发生；先找形象再写文案，配图不是讲解。
   触发：做一条 vibe 知识大赏 / 知识科普短片 / 把某个概念拍成大片 / 用代码做知识视频 / 像运气的形状、信息论那样的片子。
   不用于：有旁白配音的讲解片、竖屏短视频、剧情短剧（用 drama 系列）、需要真实素材剪辑的片子。
-version: 1.0.0
+version: 1.1.0
 license: MIT
 ---
 
@@ -17,107 +17,95 @@ license: MIT
 
 做这种片子的人是科普作者兼导演。色、字、辉光、片名卡都是皮；片子好不好，看观众能不能一眼认出屏上的东西、看见它在变、看完讲得出"因为……所以……"。
 
-## 风格 DNA（成品长什么样）
+**动手前先读 [references/visualization.md](references/visualization.md)。** 找形象的方法、六种画法、什么时候不画、两版分镜对照、看图改图的毛病表都在那里。本文件只是流程。
 
-| 维度 | 规范 | 依据 |
-|---|---|---|
-| 画幅 | 1920×1080 横屏，30fps，MP4 | 参考片实测 [官方] |
-| 时长 | 1:30–2:45（标准片约 130 秒 ≈ 40–46 拍字幕） | 参考片实测 [官方] |
-| 声音 | 无旁白、无 TTS；纯器乐 BGM（76–78 BPM 沉静节奏）或无声；用户指定曲优先 | [官方] |
-| 背景 | 深蓝黑 `#050510`–`#101028`，全片一套配色不换 | [官方] |
-| 布局 | 顶部场景/时代标签带；中央动画；y≈70% 画面注释；y≈85–91% 双语字幕（中文主句 + 英文斜体小字） | [官方] |
-| 标题卡 | 15–20 秒处落片名：大写标签 + 金色衬线片名 + 双语副标题 | [官方] |
-| 字幕节奏 | 每 2.5–4 秒一句，中文 ≤ 20 字，停留够读完 | 参考片实测 [官方] |
-| 叙事弧 | 钩子 → 历史锚点 → 机制模拟 → 反直觉转折 → 现实落点 → 声明+引用收尾 | [官方] |
-| 画面密度 | 静止秒 <25% 只是地板；每 8 秒至少一次可见变化（物变/数字/景别/硬切），事件 ≥1.2 次/10s | 参考片实测 |
-| 严谨性 | 结尾必须给学术引用与免责声明；示意图标明"示意"；数字精确到能上屏 | 三仓共同纪律 |
+## 成品长什么样
 
-## 六条铁律（不能丢）
+| 维度 | 规范 |
+|---|---|
+| 画幅 | 1920×1080 横屏，30fps，MP4 |
+| 时长 | 1:30–2:45（标准片约 130 秒 ≈ 40 句字幕） |
+| 声音 | 无旁白、无 TTS；纯器乐 BGM（76–78 BPM 沉静节奏）或无声；用户指定曲优先 |
+| 外观 | 一条片一套色板、字体、画法；每种颜色全片一个意思（默认深蓝黑底，见 visual-style.md） |
+| 布局 | 顶部单行场景/时代标签；中央主体；y≈85–91% 双语字幕（中文主句 + 英文斜体小字），其上不放杂物 |
+| 字幕 | 每句 2.5–4 秒，中文 ≤ 20 字 |
+| 片名 | 先演一个具体的小东西，6–20 秒处才落片名 |
+| 收尾 | 最后一镜回到主形象的状态反转；末句是片名回声；引用卡在其后 |
 
-1. **配图不是讲解。** 一串换给任何文案都成立的装饰图形救不了片子——每个概念要有外行认得的形象来演它。动手前先读 [references/visualization.md](references/visualization.md)。
-2. **先找形象，再写文案。** 画不出来的句子改句子；每个概念过"五问"（它是什么/生活里哪儿见过/换个尺度什么样/坏了会怎样/从哪个画面进场）。见 visualization.md。
-3. **没出处不上屏。** 年份、人名、数字、引文全部进事实表（templates/facts.md），每条带来源与把握程度；分歧两说并列；查不到就换例子。
-4. **画面 = 时间 t 的纯函数。** 一切动效由帧号驱动；禁 `Math.random()`（固定种子）、禁 CSS transition/animation（不随帧渲染）、模拟在模块顶层算好组件里只查表。见 [references/remotion-contract.md](references/remotion-contract.md)。
-5. **约 1/5 的句子不配新画面。** 提问、命名、结论、出处不硬配图——屏上留白让观众读完那句话。该画的画，该停的停。
-6. **画面先过"小图测试"，再谈风格。** 把成片帧缩到 480px 宽：主体还认得出、关键数字还读得清、画面不是一片近黑；主体占画面 ≥1/4（关键镜头 ≥1/3）；每帧至少一个暖色/高光锚点；每 8 秒至少一次可见变化；常驻大版面（左侧刻度/多行页眉/边框）不超过全片 30%。过不了，先放大主体、压暗配角、补中间调，再谈配色。
+## 六条铁律
 
-## 七步流程（不可跳步；每步带过关标准）
+1. **配图不是讲解。** 检验法：这个画面换给另一段文案还成立吗？成立就是配图。屏上的主体叫得出日常名字、长得像它本身；点、线、圈、柱子只当小字。
+2. **先找形象，再写文案。** 每个概念按 visualization.md 第一节的顺序找形象；句子里要有屏上看得见的东西和动作。画不出来的句子，改句子。
+3. **句子里的动词，屏上真的做。** "砍掉一半"就盖住一半；数是真算的；示意处写明"示意"。
+4. **该画的画，该停的停。** 提问、命名、结论、出处不配新画面，约占 1/5。一个场景撑两句以上，每句只改一处。
+5. **没出处不上屏。** 年份、人名、数字、引文全部进事实表（templates/facts.md），带来源与把握程度；分歧两说并列；查不到就换例子。
+6. **画面 = 帧号的纯函数。** 禁 `Math.random()`（用固定种子）、禁 CSS transition/animation；模拟在模块顶层算好，组件里只查表。见 [references/remotion-contract.md](references/remotion-contract.md)。
 
-### 1. 选题核实
-一句话论点；观众该记住的那一句话；3–12 个概念清单，每个写"要观众明白什么"和"外行卡在哪"。
-选题先过 [references/structure-bible.md](references/structure-bible.md) §1 四项打分（钩子 / 故事线 / 可模拟 / 反转），弱一项就换题；没方向时翻 [references/topic-seeds.md](references/topic-seeds.md) 的五个方向与种子题。
-过关：论点一口气说得完；每个概念能不用术语讲给外行听；四项打分全通过。
+## 七步流程（每步有过关标准，没过不往下走）
+
+### 1. 立题
+一句话论点；观众该记住的那一句话；3–12 个概念，每个用大白话写"要观众明白什么"和"外行卡在哪"。
+选题过 [structure-bible.md](references/structure-bible.md) §1 四项打分；没方向翻 [topic-seeds.md](references/topic-seeds.md)。
+过关：论点一口气说得完；每个概念你能不用术语讲给外行听——讲不出来先去弄懂，含糊的句子都是没弄懂时写出来的。
 
 ### 2. 事实表
-列事实表：每个年份、人名、数字的出处和把握程度（`[实测]/[官方]/[推断]/[待验证]`）。把握不足的去查，查不到就换例子。
-过关：无裸断言；全部条目有来源可追。
+每个年份、人名、数字的出处和把握程度（`[实测]/[官方]/[推断]/[待验证]`）。把握不足去查，查不到换例子。
+过关：无裸断言。
 
 ### 3. 找形象（决定片子好坏的一步，时间主要花在这里）
-先判**题型**并读对应模板：叙事场景 / 机制演绎 / 概念对话 / 具身隐喻（references/formats/，各含结构骨架、视觉系统、招牌手法与红灯）。然后对每个概念按 visualization.md 五问走；定全片的**一个**主形象、**一把尺子**、哪些东西回场。
-过关：每个形象叫得出日常名字；至少一半概念有生活锚；说得出全片哪一下最让人"哦——"。
-**停靠**：给用户看方案（钩子三个方向 + 一个推荐 + 形象清单 + 题型判断），确认后再动笔。
+先判题型，读 references/formats/ 对应模板（叙事场景 / 机制演绎 / 概念对话 / 具身隐喻）。再对每个概念按 visualization.md 第一节逐个问；定全片**一个**形象、**一把**尺子、哪些东西回场。
+过关：每个形象叫得出日常名字；至少一半概念有生活锚；没有哪个形象换给别的文案也成立；说得出全片哪一下最让人"哦——"。
+**停靠**：给用户看方案（钩子三个方向 + 一个推荐 + 形象清单 + 题型），确认后再写。用户说"直接做"可不等，但照样写出来。
 
-### 4. 文案与分镜表
-按 [references/beat-scaffold.md](references/beat-scaffold.md) 逐拍骨架写字幕稿（40–46 拍），遵守 [references/copywriting.md](references/copywriting.md)（句长/句式工具箱/禁用清单）；下笔前逐条过 [references/structure-bible.md](references/structure-bible.md) 十一条叙事定律（悬念埋点 / 反转层数 / 读数起跳 / 转"你"）；分镜表每拍写"屏上是什么、动什么"（templates/storyboard.md）。中文 ≤ 20 字/句；英文逐句对照。写完过 templates/storyboard.md 的**分镜自检**（每拍主体叫得出日常名字、动作列非空、相邻拍构图不同、模拟段写明主动作+母题循环、拍点标注卡点）——过不了的拍先改句子。
-过关：每句含一个新信息；每个动词有屏上动作；1/5 句子无新画面；末句是片名回声；每章第一句有空间连接词（更高/更低/往里/再往下一层/同一/另一）；每章至少一次景别变化；最后一镜是主形象的状态反转。
-**停靠**：旁白稿 + 分镜表一起给用户确认。
+### 4. 文案与分镜表一起写
+按 [templates/storyboard.md](templates/storyboard.md) 一句一行写：画法、屏上是什么在干什么、小字、观众明白了什么。字幕规范见 [copywriting.md](references/copywriting.md)；叙事定律和功能位置用 [structure-bible.md](references/structure-bible.md)、[beat-scaffold.md](references/beat-scaffold.md) 当检查表，不当填空题。
+过关：分镜表底部自检全过。
+**停靠**：字幕稿 + 分镜表给用户确认。
 
-### 5. Remotion 工程实现
-按 [references/remotion-contract.md](references/remotion-contract.md) 建工程（`npx create-video --blank`）：一个场景一个组件；字幕做成顶层组件压最上；文本测量适配容器；`calculateMetadata` 由分镜数据算总时长。
-过关：`npx remotion studio --no-open` 预览跑通；分镜逐拍有对应组件。
+### 5. 建工程，先做最难的一镜
+按 [remotion-contract.md](references/remotion-contract.md) 建工程（`npx create-video --blank`）：一个场景一个组件；字幕做顶层组件；`calculateMetadata` 由分镜数据算总时长。
+先做分镜里**最难画的那一镜**，`npx remotion still` 截帧过三问；过了再做开头 30 秒给用户看，再铺全片。
+过关：最难那一镜遮住字幕答得出"这是什么、在干什么"；`npx remotion studio` 预览跑通。
 
 ### 6. 渲染与看图改图
-先抽查帧（`--frames=0,30,90`），再全片渲染。渲完先跑量化门禁：`bash <skill>/scripts/motion_gate.sh 成片.mp4`——机器扫静止占比（>25% 黄灯）、单次静止 ≥3 秒（红灯）、中段黑场 ≥1.2 秒（红灯），红灯修完重渲。然后**每做完一段就截图看**：遮住字幕过三问（这是什么 / 它在干什么 / 我明白了什么）；对照 [references/quality-gate.md](references/quality-gate.md) 逐条查。
-
-再做一次**小图网格**：每 10–15 秒抽一帧，缩到 480px 宽排成 3×3 或 5×5。眯眼看：每一格能不能一眼说出主体？有没有连续三格构图一样？有没有一片近黑？有没有主体小到只剩一条金线？过不了 [quality-gate.md §0b](references/quality-gate.md) 就先改再渲。
-过关：**至少改两轮再给用户看**；每轮列毛病 → 改 → 重截同时刻 → 确认改掉、没改坏别的；小图网格过关。
+按 [quality-gate.md](references/quality-gate.md) 三步走：`motion_gate.sh` 扫硬伤 → 480px 小图网格看清晰 → 遮字幕三问看讲解；毛病按 visualization.md 第十节的表改。
+过关：**至少改两轮再给用户看**；每轮列毛病 → 改 → 重截同样时刻 → 确认改掉、没改坏别的。
 
 ### 7. 交付
-
 **交付目录**：`~/Desktop/vibe知识大赏/`（不存在先 `mkdir -p`）。
-**成片命名**：`<当日日期 YYYY-MM-DD>-<主题 title>.mp4`，例：`2026-11-07-太阳说了算.mp4`；同一天同一主题重渲时覆盖前先确认。
-成片 + 事实表 + 分镜表 + 引用卡。**交片时说实话**：不满意的地方、没做的东西直接列出来。
-**交片后回填**：把这支片子验证过的做法写进 [references/lessons.md](references/lessons.md)（一句结论 + 用在哪，不复述证据与论证），坑写进对应 reference。
+**成片命名**：`<YYYY-MM-DD>-<主题 title>.mp4`；同一天同一主题重渲时覆盖前先确认。
+成片 + 事实表 + 分镜表 + 引用卡。按 quality-gate.md §4 终检；**交片时说实话**：不满意的地方、没做的东西、没完整看过的部分直接列出。
+**交片后回填**：验证过的做法写进 [lessons.md](references/lessons.md)（一句结论 + 用在哪），坑写进对应 reference。
 
-## 常见错误
+## 力气不够时
 
-| 错误 | 纠正 |
-|---|---|
-| 用点线圈柱代替主体 | 主体必须叫得出日常名字、长得像它本身（一串有光泽的珠子，不是一个圆圈加标签） |
-| 写完文案再配图 | 颠倒：先找形象，画不出来的句子改句子 |
-| 句句配新画面 | 提问/命名/结论不配新画面；一个场景撑两句以上，每句只改一处 |
-| 字幕铺满全片 | 无字幕时间留 25–40%（标题卡/转场/模拟自己跑的段落） |
-| 组件体内跑模拟 | 模块顶层算好，组件只查表 |
-| 静止超 3 秒 | 文字停留时也加微动画（呼吸/辉光/缓移） |
-| "很多次""差不多" | 回去查出那个数；数字是节奏锚点 |
-| 整帧黑成一片，只剩金线 | 近黑像素 ≤45%、中间调 ≥20%；主体与底色对比 ≥3:1；每帧一个暖色/高光锚点 |
-| 主体只有画面 1/10，靠字幕解释 | 主体 ≥1/4；先放大主体，再删标签；标签画进物里 |
-| 全片只有缓漂，33 秒没变化 | 每 8 秒一次可见变化；每章至少一次硬切/景别变化（推拉漂移不算事件） |
-| 左侧刻度/页眉变成常驻页框 | 常驻版面元素 ≤30% 时长、同屏 ≤2 个；能撤就撤，能画进物里就画进物里 |
-| 结尾落在一张字卡/引用墙 | 最后一镜回到主形象的状态反转；引用卡放其后或角落 |
+1. **不跳步。** 尤其第 3、4 步：没有形象和分镜表，后面改多少轮都救不回来。
+2. **拿不准就查表。** 这一句怎么演，查 visualization.md 第三节；毛病怎么改，查第十节。
+3. **画面现写，不套模板。** `examples/` 看的是做法，不是零件库。
+4. **宁可少，不要糊。** 时间只够做好三个概念，就只做三个。
 
 ## 按需加载
 
-- 讲解设计与找形象五问：[references/visualization.md](references/visualization.md)
-- 逐拍骨架（130 秒 = 40–46 拍）：[references/beat-scaffold.md](references/beat-scaffold.md)
-- 字幕稿规范与句式工具箱：[references/copywriting.md](references/copywriting.md)
-- 结构圣经（选题打分/四种骨架/十一条叙事定律）：[references/structure-bible.md](references/structure-bible.md)
-- 选题种子库（五个方向/四关检验/种子题）：[references/topic-seeds.md](references/topic-seeds.md)
-- 视觉规范（配色/字体/构图/转场）：[references/visual-style.md](references/visual-style.md)
-- 亮度层次 / 镜头语言 / 版面纪律 / 收尾（反"黑屏图表"）：visual-style.md §8–11
-- BGM 合成与卡点（synth_bgm + Remotion 对接）：[references/bgm-and-sync.md](references/bgm-and-sync.md)
-- Remotion 契约（映射表/纪律/命令）：[references/remotion-contract.md](references/remotion-contract.md)
-- 质量门与自检表：[references/quality-gate.md](references/quality-gate.md)
-- 小图测试与清晰度门禁（480px 网格/主体占比/事件密度/HUD）：quality-gate.md §0b
-- 题型模板（四套：叙事场景/机制演绎/概念对话/具身隐喻）：references/formats/
-- 引用落位分级（L1文献/L2标签/L2b注脚/L3内嵌）：[references/citation-policy.md](references/citation-policy.md)
-- 量化门禁脚本（渲后跑，静止/黑场/占比三判据）：`scripts/motion_gate.sh`
-- 经验回流（做完一支回填一条）：[references/lessons.md](references/lessons.md)
-- 事实表 / 分镜表模板：templates/
-- 完整示例工程（二十四节气）：`examples/solar-terms/`（仅仓库内，安装版不含）
+| 文件 | 内容 |
+|---|---|
+| [references/visualization.md](references/visualization.md) | **讲解设计**：找形象、六种画法、画与不画、理解加速器、两版分镜对照、看图改图 |
+| [references/structure-bible.md](references/structure-bible.md) | 选题打分、四种骨架、十一条叙事定律 |
+| [references/beat-scaffold.md](references/beat-scaffold.md) | 130 秒的功能位置检查表 |
+| [references/copywriting.md](references/copywriting.md) | 字幕稿：量、句式、删句、禁用清单 |
+| [references/formats/](references/formats/) | 四种题型的骨架、视觉系统、招牌手法 |
+| [references/visual-style.md](references/visual-style.md) | 配色、字体、构图、动效、亮度层次、镜头、版面 |
+| [references/quality-gate.md](references/quality-gate.md) | 质量门三步 + 终检 |
+| [references/remotion-contract.md](references/remotion-contract.md) | Remotion 映射表、纪律、命令 |
+| [references/bgm-and-sync.md](references/bgm-and-sync.md) | BGM 合成（`scripts/synth_bgm.py`）与卡点 |
+| [references/citation-policy.md](references/citation-policy.md) | 引用落位分级 |
+| [references/topic-seeds.md](references/topic-seeds.md) | 选题种子库 |
+| [references/lessons.md](references/lessons.md) | 经验回流 |
+| `scripts/motion_gate.sh` | 量化门禁（静止/黑场/暗帧） |
+| `templates/` | 事实表、分镜表模板 |
+| `examples/solar-terms/` | 完整示例工程（二十四节气，V1/V2 对比）；渲染入口 `npx remotion still src/Root.tsx MainV2 ...` |
 
 ## 与其他 Skill 的边界
 
-- 剧情/短剧类 → `drama-*` 系列（叙事分镜、真人感生成）
-- 需要旁白配音的知识讲解 → 本 Skill 不做 TTS；可交付后在剪辑软件自行配音
-- 参考：vibe-knowledge 三仓（MIT，方法论借鉴、文本独立重写，见项目 参考skills/README.md 第 13–15 条）
+- 剧情/短剧类 → `drama-*` 系列
+- 需要旁白配音的知识讲解 → 本 Skill 不做 TTS；可交付后自行配音
+- 方法借鉴：vibe-knowledge 三仓与 vibe-knowledge-film（MIT），文本独立重写
